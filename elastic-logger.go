@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
 func toElastic(url string, host string, level string, message string) {
+	message = strings.Trim(message, "\"")
+	fmt.Printf("Info : %s \n",  message)
 	timeout := time.Duration(5 * time.Second)
 	client := http.Client{
 		Timeout: timeout,
