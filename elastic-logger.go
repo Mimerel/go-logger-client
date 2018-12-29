@@ -10,7 +10,7 @@ import (
 )
 
 func toElastic(url string, host string, level string, message string) {
-	message = strings.Trim(message, "\"")
+	message = strings.Replace(message, "\"", "'", -1)
 	timeout := time.Duration(5 * time.Second)
 	client := http.Client{
 		Timeout: timeout,
