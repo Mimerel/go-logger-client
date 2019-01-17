@@ -15,6 +15,9 @@ func toElastic(url string, host string, level string, message string) {
 	client := http.Client{
 		Timeout: timeout,
 	}
+	if host == "" {
+		host = "Error"
+	}
 	postingUrl := url + "/" + host + "/logs"
 
 	unixNano := time.Now().UnixNano()
