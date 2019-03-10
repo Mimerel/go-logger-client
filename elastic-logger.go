@@ -59,17 +59,17 @@ func Error(url string, host string, message string) {
 	}
 }
 
-func (l logParams) Info(message string) {
+func (l logParams) Info(message string, args ...interface{}) {
 	if l.url != "" {
-		toElastic(l.url, l.host, "Info", message)
+		toElastic(l.url, l.host, "Info", fmt.Sprintf(message, args...))
 	} else {
 		fmt.Printf("Info : %s \n",  message)
 	}
 }
 
-func (l logParams) Error(message string) {
+func (l logParams) Error(message string, args ...interface{}) {
 	if l.url != "" {
-		toElastic(l.url, l.host, "Error", message)
+		toElastic(l.url, l.host, "Error", fmt.Sprintf(message, args...))
 	} else {
 		fmt.Printf("Error : %s \n",  message)
 	}
