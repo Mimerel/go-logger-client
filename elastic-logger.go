@@ -9,6 +9,16 @@ import (
 	"time"
 )
 
+type logParams struct {
+	url string
+	host string
+}
+
+func New(url string, host string) logParams {
+	l := logParams{url: url, host: host}
+	return l
+}
+
 func toElastic(url string, host string, level string, message string) {
 	message = strings.Replace(message, "\"", "'", -1)
 	timeout := time.Duration(5 * time.Second)
@@ -44,6 +54,22 @@ func Info(url string, host string, message string) {
 func Error(url string, host string, message string) {
 	if url != "" {
 		toElastic(url, host, "Error", message)
+	} else {
+		fmt.Printf("Error : %s \n",  message)
+	}
+}
+
+func (l logParams) Info(message string) {
+	if l.url != "" {
+		toElastic(l.url, l.host, "Info", message)
+	} else {
+		fmt.Printf("Info : %s \n",  message)
+	}
+}
+
+func (l logParams) Error(message string) {
+	if l.url != "" {
+		toElastic(l.url, l.host, "Error", message)
 	} else {
 		fmt.Printf("Error : %s \n",  message)
 	}
