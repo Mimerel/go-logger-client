@@ -9,13 +9,13 @@ import (
 	"time"
 )
 
-type logParams struct {
+type LogParams struct {
 	url string
 	host string
 }
 
-func New(url string, host string) logParams {
-	l := logParams{url: url, host: host}
+func New(url string, host string) LogParams {
+	l := LogParams{url: url, host: host}
 	return l
 }
 
@@ -59,7 +59,7 @@ func Error(url string, host string, message string) {
 	}
 }
 
-func (l logParams) Info(message string, args ...interface{}) {
+func (l LogParams) Info(message string, args ...interface{}) {
 	computedMessage := fmt.Sprintf(message, args...)
 	if l.url != "" {
 		toElastic(l.url, l.host, "Info", computedMessage)
@@ -68,7 +68,7 @@ func (l logParams) Info(message string, args ...interface{}) {
 	}
 }
 
-func (l logParams) Error(message string, args ...interface{}) {
+func (l LogParams) Error(message string, args ...interface{}) {
 	computedMessage :=fmt.Sprintf(message, args...)
 	if l.url != "" {
 		toElastic(l.url, l.host, "Error", computedMessage)
